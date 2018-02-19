@@ -4,7 +4,6 @@
 #include<limits.h>
 #include "fundamental_tree.h"
 #include "stack.h"
-
 //driver routine
 int main() 
 {
@@ -28,7 +27,7 @@ int main()
     fflush(stdin);
     scanf("%d", &select);
     switch(select){
-      case 1: printf("Insert value: ");
+      case 1: printf("Insert value: \n");
 		scanf("%d", &value);
 		root = insert(value, root);
 
@@ -38,7 +37,7 @@ int main()
 
 		print_ascii_tree(root);
 		break;
-      case 2: printf("Delete value: ");
+      case 2: printf("Delete value: \n");
 		scanf("%d", &value);
 
     /* HISTORY ADDED */
@@ -48,13 +47,32 @@ int main()
 		root = deletenode(value, root);
 		print_ascii_tree(root);
 		break;
-      case 3: printf("Undo: ");
-    
-    /* HISTORY ADDED */
-
+      case 3: printf("Undo: \n");
+      
+    	/* UNDO ADDED */
+    	if(stp[top].indicate == 'I')
+		{
+    		root = deletenode(stp[top].stack, root);
+    		push(stp[top].stack,'D');
+    		printf("Delete %d",stp[top].stack);
+		}else if(stp[top].indicate == 'D'){
+			root = insert(stp[top].stack, root);
+			push(stp[top].stack,'I');
+			printf("Insert %d",stp[top].stack);
+		}else{
+			
+		}
+    	/* UNDO ADDED */
+    	
 		print_ascii_tree(root);
 		break;
       case 4: printf("History: \n");
+      	if(top == -1)
+      	{
+      		printf("--- HISTORY EMPTY !! ---\n");
+		}else{
+			
+		}
         peek();
 		break;
       default:  break;

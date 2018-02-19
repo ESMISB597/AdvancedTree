@@ -428,7 +428,8 @@ Tree* initialTree(Tree *root){
 
   // initial tree fron treeData[]
   int sizeOfTree = sizeof(treeData)/sizeof(treeData[0]);
-  for(int i = 0; i < sizeOfTree; i++){
+  int i;
+  for(i = 0; i < sizeOfTree; i++){
     value = treeData[i];
 	root = insert(value, root);
   }
