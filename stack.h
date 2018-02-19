@@ -68,3 +68,16 @@ int push(int data, char datinc) {
    }
 	return push;
 }
+
+int undo_state(int undo_data, char undo_dat) {
+	Tree * root;
+	if(undo_dat == 'I')
+	{
+		root = deletenode(undo_data, root);
+		print_ascii_tree(root);
+	}else if(undo_dat == 'D'){
+		root = insertnode(undo_data, root);
+		print_ascii_tree(root);
+	}else{
+	}
+}
