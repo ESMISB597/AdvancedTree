@@ -16,9 +16,6 @@ int main()
   int value;
   int select;
   root = NULL;
-  int top = -1; 
-  int stackNo1[30];
-  char stackNo2[30]; 
   
   // clrscr();
   make_empty(root);
@@ -52,7 +49,9 @@ int main()
 		print_ascii_tree(root);
 		break;
       case 3: printf("Undo: ");
-        // << Your UNDO code here >>
+    
+    /* HISTORY ADDED */
+
 		print_ascii_tree(root);
 		break;
       case 4: printf("History: \n");
