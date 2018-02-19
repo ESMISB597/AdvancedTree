@@ -1,3 +1,4 @@
+
 int MAXSIZE = 30;
 int top = -1;
 int loop1;
@@ -28,9 +29,9 @@ int peek() {
    {
 	if(stp[loop1].indicate == 'I')
 	{
-		printf("Insert --> %d\n",stp[loop1].stack);
+		printf("%d Insert %d\n",loop1,stp[loop1].stack);
 	}else if(stp[loop1].indicate == 'D'){
-		printf("Delete --> %d\n",stp[loop1].stack);
+		printf("%d Delete %d\n",loop1,stp[loop1].stack);
 	}else{
 	}
    }
@@ -41,17 +42,9 @@ int pop() {
    char datinc;
 
    if(!isempty()) {
-	if(stp[top].indicate == 'I')
-	{
-		undo_state(stp[top].stack,'I');
-	}else if(stp[top].indicate == 'D'){
-		undo_state(stp[top].stack,'D');
-	}
       data = stp[top].stack;
       datinc == stp[top].indicate;
       top = top - 1;   
-      return data;
-      return datinc;
    } else {
       printf("Could not retrieve data, Stack is empty.\n");
    }
@@ -66,18 +59,6 @@ int push(int data, char datinc) {
    } else {
       printf("Could not insert data, Stack is full.\n");
    }
-	return push;
+	return 3;
 }
 
-int undo_state(int undo_data, char undo_dat) {
-	Tree * root;
-	if(undo_dat == 'I')
-	{
-		root = deletenode(undo_data, root);
-		print_ascii_tree(root);
-	}else if(undo_dat == 'D'){
-		root = insertnode(undo_data, root);
-		print_ascii_tree(root);
-	}else{
-	}
-}
