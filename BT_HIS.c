@@ -567,15 +567,15 @@ int main()
       /* SHOW What deleted */
       printf("Deleted %d ",stp[top].stack, root);
       /* SHOW What deleted */
-      pop();
+      undo();
     }else if(stp[top].indicate == 'D'){
       root = insert(stp[top].stack, root);
       /* SHOW What inserted */
       printf("Inserted %d ",stp[top].stack, root);
       /* SHOW What inserted */
-      pop();
+      undo();
     }else{
-      
+
     }
 		print_ascii_tree(root);
 		break;
