@@ -431,7 +431,7 @@ Tree* initialTree(Tree *root){
   int treeData[] = {20, 12, 30, 15, 40, 10, 25};
   int value;
   int i;
-  
+
   // initial tree fron treeData[]
   int sizeOfTree = sizeof(treeData)/sizeof(treeData[0]);
   for(i = 0; i < sizeOfTree; i++){
@@ -563,7 +563,7 @@ int main()
 		print_ascii_tree(root);
 		break;
       case 4: printf("History: \n");
-        // << Your ViewHistory code here >>
+    history();
 		break;
       default:  break;
     }
