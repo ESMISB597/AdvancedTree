@@ -580,7 +580,13 @@ int main()
 		print_ascii_tree(root);
 		break;
       case 4: printf("History: \n");
-    history();
+      if(top == -1)
+      {
+        printf("--> History Empty <--");
+      }else{
+        history();        
+      }
+
 		break;
       default:  break;
     }
