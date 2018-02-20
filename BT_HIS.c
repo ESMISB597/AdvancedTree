@@ -4,6 +4,10 @@
 #include<stdlib.h>
 #include<string.h>
 
+// STATIC TREE //
+static int treeData[] = {20, 12, 30, 15, 40, 10, 25};
+// STATIC TREE //
+
 typedef struct Tree Tree;
 
 struct Tree 
@@ -436,9 +440,60 @@ int loop1;
 struct DataStack{
     int stack;
     char indicate;
+    int boolval;
+    int looppre;
 }stp[30];  
 // STRUCTURE FOR STACK //       
 
+int checktree(int data, char datinc)
+{
+   int i;
+   int c = 0;
+   int sizeOfTree = sizeof(treeData)/sizeof(treeData[0]);
+
+  for(i = 0 ; i < sizeOfTree; i++)
+  {
+    c++;
+    if(data == treeData[i] && datinc == 'P')
+    {
+      if(i <= sizeOfTree)
+      {
+        top = top + 1;   
+        stp[top].stack = data;
+        stp[top].indicate = datinc;   
+        stp[top].boolval = 10;  
+        stp[top].looppre = i;      
+      }else{
+        break;
+      }
+
+    }else if(data == treeData[i] && datinc != 'P'){
+      printf("Invalid ! \n");
+      break;
+    }else if(data != treeData[i] && datinc == 'I' && i == stp[i].looppre){
+      if(c < i)
+      {
+      }else if (i > 5){
+        top = top + 1;
+        stp[top].stack = data;
+        stp[top].indicate = datinc;
+        stp[top].boolval = 20;
+      }
+    }else if(data == treeData[i] && datinc == 'I'){
+      printf("Invalid ! \n");
+      break;
+    }else if(data != treeData[i] && datinc == 'D' && i == stp[i].looppre){
+      if(c < i)
+      {
+      }else if(i > 5){
+        top = top + 1;
+        stp[top].stack = data;
+        stp[top].indicate = datinc;
+        stp[top].boolval = 60;
+      }
+    }
+  }
+}
 // BOOL EMPTY //
 int isempty() {
 
@@ -478,32 +533,33 @@ int history() {
 // SEE HISTORY //
 
 // TRUNCATE STACK //
-int undo() {
+int undo(char indicate, int vs2) {
+   int i;
+   int sizeOfTree = sizeof(treeData)/sizeof(treeData[0]);
    int data;
    char datinc;
 
-   if(!isempty()) {
-    if(stp[loop1].indicate == 'P')
-    {
-      printf("You Shouldn't Delete Locked Tree ! \n");
-    }else{
-      data = stp[top].stack;
-      datinc == stp[top].indicate;
-      top = top - 1;   
-    }
-   } else {
-      printf("Could not retrieve data, Stack is empty.\n");
-   }
+    if(!isempty()) {
+        i = sizeOfTree;
+        if(stp[top].indicate == 'P' && stp[top].stack == treeData[i])
+        {
+          printf("You Shouldn't Delete Locked Tree ! \n");
+        }else{
+          data = stp[top].stack;
+          datinc == stp[top].indicate;
+          top = top - 1;
+          i--;   
+        }
+        } else {
+        printf("Could not retrieve data, Stack is empty.\n");
+        }
 }
 // TRUNCATE STACK //
-
 // PUSH IN STACK //
 int incoming(int data, char datinc) {
 
    if(!isfull()) {
-      top = top + 1;   
-      stp[top].stack = data;
-      stp[top].indicate = datinc;
+       checktree(data, datinc);
    } else {
       printf("Could not insert data, Stack is full.\n");
    }
@@ -514,7 +570,6 @@ int incoming(int data, char datinc) {
 // EOINT
 
 Tree* initialTree(Tree *root){
-  int treeData[] = {20, 12, 30, 15, 40, 10, 25};
   int value;
   int i;
 
@@ -554,18 +609,32 @@ int main()
     switch(select){
       case 1: printf("Insert value: \n");
 		scanf("%d", &value);
-		root = insert(value, root);
-		print_ascii_tree(root);
+    incoming(value,'I'); /* <-- 'I' is meaning insert is a bool */  
+    if(stp[top].boolval == 20 && stp[top].indicate == 'I')
+    {
+      root = insert(value, root); 
+      print_ascii_tree(root);   
+    }else if(stp[top].boolval == 10){
+      printf("Do Not insert Value that duplicated a existing tree \n");
+    }else{
+
+    }
 		// ADD HISTORY //
-    incoming(value,'I'); /* <-- 'I' is meaning insert is a bool */
     // ADD HISTORY //
 		break;
       case 2: printf("Delete value: \n");
 		scanf("%d", &value);
-		root = deletenode(value, root);
-		print_ascii_tree(root);
+      incoming(value,'D'); /* <-- 'D' is meaning insert is a bool */
+    if(stp[top].boolval == 60)
+    {
+      root = deletenode(value, root);
+      print_ascii_tree(root);
+    }else if(stp[top].boolval == 30){
+      printf("Do not Delete Value That Duplicate !! \n");
+    }else{
+
+    }
 		// DELETE HISTORY //
-    incoming(value,'D'); /* <-- 'D' is meaning insert is a bool */
     // DELETE HISTORY //
 		break;
       case 3: printf("Undo: \n");
@@ -573,27 +642,32 @@ int main()
     if(stp[top].indicate == 'I')
     {
       root = deletenode(stp[top].stack, root);
+      undo(stp[top].indicate,stp[top].stack);
       /* SHOW What deleted */
-      printf("Deleted %d ",stp[top].stack, root);
+      printf("Deleted %d \n",stp[top].stack, root);
       /* SHOW What deleted */
-      undo();
+      print_ascii_tree(root);
     }else if(stp[top].indicate == 'D'){
       root = insert(stp[top].stack, root);
+      undo(stp[top].indicate,stp[top].stack);
       /* SHOW What inserted */
-      printf("Inserted %d ",stp[top].stack, root);
+      printf("Inserted %d \n",stp[top].stack, root);
       /* SHOW What inserted */
-      undo();
-    }else{
-
+      print_ascii_tree(root);
+    }else if(stp[top].indicate == 'P'){
+      printf("Do Not Delete Existing Tree (Origin)\n");
     }
-		print_ascii_tree(root);
 		break;
       case 4: printf("History: \n");
       if(top == -1)
       {
         printf("--> History Empty <--");
-      }else{
-        history();        
+      }else if(stp[top].indicate == 'P'){
+        printf("---> LOCKED TREE <---\n");
+        history();   
+        printf("---> LOCKED TREE <---\n");     
+      }else if(stp[top].indicate != 'P'){
+        history();
       }
 
 		break;
