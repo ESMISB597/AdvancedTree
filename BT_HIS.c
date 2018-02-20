@@ -427,21 +427,6 @@ void print_ascii_tree(Tree * t)
   free_ascii_tree(proot); 
 }
 
-Tree* initialTree(Tree *root){
-  int treeData[] = {20, 12, 30, 15, 40, 10, 25};
-  int value;
-  int i;
-
-  // initial tree fron treeData[]
-  int sizeOfTree = sizeof(treeData)/sizeof(treeData[0]);
-  for(i = 0; i < sizeOfTree; i++){
-    value = treeData[i];
-	root = insert(value, root);
-  }
-  print_ascii_tree(root);
-  return root;
-}
-
 // INITIALIZE STACK 
 int MAXSIZE = 30;
 int top = -1;
@@ -483,7 +468,10 @@ int history() {
           printf("%d Insert %d\n",loop1,stp[loop1].stack);
       }else if(stp[loop1].indicate == 'D'){
           printf("%d Delete %d\n",loop1,stp[loop1].stack);
+      }else if(stp[loop1].indicate == 'P'){
+          printf("%d Preload %d\n",loop1,stp[loop1].stack);
       }else{
+
       }
   }
 }
@@ -495,9 +483,14 @@ int undo() {
    char datinc;
 
    if(!isempty()) {
+    if(stp[loop1].indicate == 'P')
+    {
+      printf("You Shouldn't Delete Locked Tree ! \n");
+    }else{
       data = stp[top].stack;
       datinc == stp[top].indicate;
       top = top - 1;   
+    }
    } else {
       printf("Could not retrieve data, Stack is empty.\n");
    }
@@ -519,6 +512,22 @@ int incoming(int data, char datinc) {
 // PUSH IN STACK //
 
 // EOINT
+
+Tree* initialTree(Tree *root){
+  int treeData[] = {20, 12, 30, 15, 40, 10, 25};
+  int value;
+  int i;
+
+  // initial tree fron treeData[]
+  int sizeOfTree = sizeof(treeData)/sizeof(treeData[0]);
+  for(i = 0; i < sizeOfTree; i++){
+    value = treeData[i];
+	  root = insert(value, root);
+    incoming(value,'P');
+  }
+  print_ascii_tree(root);
+  return root;
+}
 
 //driver routine
 int main() 
