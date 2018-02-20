@@ -546,16 +546,19 @@ int main()
 		scanf("%d", &value);
 		root = insert(value, root);
 		print_ascii_tree(root);
-		// << Your AddHistory code here >>
+		// ADD HISTORY //
+    incoming(value,'I'); /* <-- 'I' is meaning insert is a bool */
+    // ADD HISTORY //
 		break;
       case 2: printf("Delete value: ");
 		scanf("%d", &value);
 		root = deletenode(value, root);
 		print_ascii_tree(root);
-		// << Your AddHistory code here >>
+		// DELETE HISTORY //
+    incoming(value,'D'); /* <-- 'D' is meaning insert is a bool */
+    // DELETE HISTORY //
 		break;
       case 3: printf("Undo: ");
-        // << Your UNDO code here >>
 		print_ascii_tree(root);
 		break;
       case 4: printf("History: \n");
