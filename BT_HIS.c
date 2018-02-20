@@ -52,13 +52,13 @@ int main()
     	/* UNDO ADDED */
     	if(stp[top].indicate == 'I')
 		{
+    		printf("Delete %d\n",stp[top].stack);
     		root = deletenode(stp[top].stack, root);
-    		push(stp[top].stack,'D');
-    		printf("Delete %d",stp[top].stack);
+    		pop();
 		}else if(stp[top].indicate == 'D'){
+			printf("Insert %d\n",stp[top].stack);
 			root = insert(stp[top].stack, root);
-			push(stp[top].stack,'I');
-			printf("Insert %d",stp[top].stack);
+			pop();
 		}else{
 			
 		}
