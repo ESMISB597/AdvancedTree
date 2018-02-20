@@ -543,7 +543,7 @@ int main()
     fflush(stdin);
     scanf("%d", &select);
     switch(select){
-      case 1: printf("Insert value: ");
+      case 1: printf("Insert value: \n");
 		scanf("%d", &value);
 		root = insert(value, root);
 		print_ascii_tree(root);
@@ -551,7 +551,7 @@ int main()
     incoming(value,'I'); /* <-- 'I' is meaning insert is a bool */
     // ADD HISTORY //
 		break;
-      case 2: printf("Delete value: ");
+      case 2: printf("Delete value: \n");
 		scanf("%d", &value);
 		root = deletenode(value, root);
 		print_ascii_tree(root);
@@ -559,7 +559,7 @@ int main()
     incoming(value,'D'); /* <-- 'D' is meaning insert is a bool */
     // DELETE HISTORY //
 		break;
-      case 3: printf("Undo: ");
+      case 3: printf("Undo: \n");
     // REVERT //
     if(stp[top].indicate == 'I')
     {
