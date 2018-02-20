@@ -62,4 +62,3 @@ int push(int data, char datinc) {
 	return 3;
 }
 
-
