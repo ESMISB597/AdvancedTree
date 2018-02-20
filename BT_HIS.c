@@ -560,6 +560,23 @@ int main()
     // DELETE HISTORY //
 		break;
       case 3: printf("Undo: ");
+    // REVERT //
+    if(stp[top].indicate == 'I')
+    {
+      root = deletenode(stp[top].stack, root);
+      /* SHOW What deleted */
+      printf("Deleted %d ",stp[top].stack, root);
+      /* SHOW What deleted */
+      pop();
+    }else if(stp[top].indicate == 'D'){
+      root = insert(stp[top].stack, root);
+      /* SHOW What inserted */
+      printf("Inserted %d ",stp[top].stack, root);
+      /* SHOW What inserted */
+      pop();
+    }else{
+      
+    }
 		print_ascii_tree(root);
 		break;
       case 4: printf("History: \n");
