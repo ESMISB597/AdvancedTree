@@ -441,6 +441,84 @@ Tree* initialTree(Tree *root){
   return root;
 }
 
+// INITIALIZE STACK 
+int MAXSIZE = 30;
+int top = -1;
+int loop1;
+
+// STRUCTURE FOR STACK //       
+struct DataStack{
+    int stack;
+    char indicate;
+}stp[30];  
+// STRUCTURE FOR STACK //       
+
+// BOOL EMPTY //
+int isempty() {
+
+   if(top == -1)
+      return 1;
+   else
+      return 0;
+}
+// BOOL EMPTY //
+
+// BOOL FULL //   
+int isfull() {
+
+   if(top == MAXSIZE)
+      return 1;
+   else
+      return 0;
+}
+// BOOL FULL //   
+
+// SEE HISTORY //
+int history() {
+  for(loop1 = 0 ; loop1 <= top ; loop1++)
+  {
+      if(stp[loop1].indicate == 'I')
+      {
+          printf("%d Insert %d\n",loop1,stp[loop1].stack);
+      }else if(stp[loop1].indicate == 'D'){
+          printf("%d Delete %d\n",loop1,stp[loop1].stack);
+      }else{
+      }
+  }
+}
+// SEE HISTORY //
+
+// TRUNCATE STACK //
+int undo() {
+   int data;
+   char datinc;
+
+   if(!isempty()) {
+      data = stp[top].stack;
+      datinc == stp[top].indicate;
+      top = top - 1;   
+   } else {
+      printf("Could not retrieve data, Stack is empty.\n");
+   }
+}
+// TRUNCATE STACK //
+
+// PUSH IN STACK //
+int incoming(int data, char datinc) {
+
+   if(!isfull()) {
+      top = top + 1;   
+      stp[top].stack = data;
+      stp[top].indicate = datinc;
+   } else {
+      printf("Could not insert data, Stack is full.\n");
+   }
+  return 3;
+}
+// PUSH IN STACK //
+
+// EOINT
+
 //driver routine
 int main() 
 {
